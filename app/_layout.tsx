@@ -1,37 +1,52 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
-import { useEffect } from 'react';
-import 'react-native-reanimated';
-
-import { useColorScheme } from '@/hooks/useColorScheme';
-
-// Prevent the splash screen from auto-hiding before asset loading is complete.
-SplashScreen.preventAutoHideAsync();
+import 'react-native-gesture-handler';
+import {GestureHandlerRootView} from 'react-native-gesture-handler';
+import { Drawer } from 'expo-router/drawer';
+import CustomDrawerLayout from '@/components/CustomDrawerLayout';
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
-  const [loaded] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
-  });
-
-  useEffect(() => {
-    if (loaded) {
-      SplashScreen.hideAsync();
-    }
-  }, [loaded]);
-
-  if (!loaded) {
-    return null;
-  }
-
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
-      </Stack>
-    </ThemeProvider>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+        <Drawer drawerContent={CustomDrawerLayout} 
+        screenOptions={{ 
+        drawerActiveTintColor: '#004c3f',
+        headerStyle: {backgroundColor : '#fffde8'}
+        }}>
+        <Drawer.Screen
+            name="index" // This is the name of the page and must match the url from root
+            options={{
+                drawerLabel: 'Home',
+                title: 'MoneyMadness',
+                headerTransparent: true,
+            }}
+        />
+          <Drawer.Screen
+               name="personalExpense" // This is the name of the page and must match the url from root
+               options={{
+                   drawerLabel: 'Personal Expenses',
+                   title: 'Personal Expenses',
+                }}
+            />
+            <Drawer.Screen
+               name="lendingScreens/ledger" // This is the name of the page and must match the url from root
+               options={{
+                   drawerLabel: 'Ledger',
+                   title: 'Ledger',
+                }}
+            />
+            <Drawer.Screen
+                name="goalScreens/goals" // This is the name of the page and must match the url from root
+                options={{
+                    drawerLabel: 'Goals',
+                    title: 'Your Goals',
+                }}
+            />
+            <Drawer.Screen 
+                name='+not-found'
+                options={{
+                    
+                }}
+            />
+        </Drawer>
+    </GestureHandlerRootView>
   );
 }
