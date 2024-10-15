@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { Pressable, StyleSheet, Text, View } from 'react-native'
 import React, { Dispatch, SetStateAction } from 'react'
 import { MaterialIcons } from '@expo/vector-icons';
 import { getAmount, getFullMonthName } from '@/utils';
@@ -16,11 +16,17 @@ const ExpenseSubHeader = ({ expense, income, month, year, changeMonth}:
   return (
     <View id='expenseSubHeader' className='bg-[#fffde8]'>
       <View id='subHeaderMonthContainer' className='w-full flex-row justify-center items-center mt-1.5 mb-3'>
-        <MaterialIcons name='chevron-left' size={30} color={'#004c3f'} onPress={()=>changeMonth(-1)}/>
-        <Text style={styles.subHeaderMonthTxt}>
-          {`${monthName} ${year}`}
-        </Text>
-        <MaterialIcons name='chevron-right' size={30} color={'#004c3f'} onPress={()=>changeMonth(1)}/>
+        <Pressable className='p-0.5 border rounded-full' onPress={()=>changeMonth(-1)}>
+          <MaterialIcons name='chevron-left' size={30} color={'#004c3f'} />
+        </Pressable>
+        <View style={{width: 180}}>
+          <Text style={styles.subHeaderMonthTxt}>
+            {`${monthName} ${year}`}
+          </Text>
+        </View>
+        <Pressable className='p-0.5 border rounded-full' onPress={()=>changeMonth(1)}>
+          <MaterialIcons name='chevron-right' size={30} color={'#004c3f'} onPress={()=>changeMonth(1)}/>
+        </Pressable>
       </View>
       <View id='subHeaderBalance' className='flex-row items-center justify-around'>
         <View className={expenseBarTextContainertype}>
