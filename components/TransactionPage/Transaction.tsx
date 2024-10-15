@@ -63,9 +63,9 @@ const TypeSpecificAmmount = ({type, transaction} : {type:"Expense" | "Income" | 
             <View className={textContainerStyle}>
                 <Text className={textStyleBlue}>{getAmount(transaction.amount)}</Text>
                 <View className='flex-row justify-evenly items-center'>
-                    <Text><Text className='text-xs'>From</Text> {transaction.fromAccount}</Text>
-                    <FontAwesome style={{marginHorizontal: 4}} name="long-arrow-right" size={15} color="black" />
-                    <Text><Text className='text-xs'>To</Text> {transaction.toAccount}</Text>
+                    <Text>{transaction.fromAccount}</Text>
+                    <FontAwesome style={{marginHorizontal: 4}} name="long-arrow-right" size={12} color="black" />
+                    <Text>{transaction.toAccount}</Text>
                 </View>
             </View>
         )
